@@ -1,4 +1,5 @@
 pandas
+scikit-learn
 jupyter
 newspaper3k
 tavily-python
@@ -7,6 +8,7 @@ lxml_html_clean
 spacy-spanish-lemmatizer
 nltk
 spacy
+textblob
 requests
 beautifulsoup4
 langchain-core 

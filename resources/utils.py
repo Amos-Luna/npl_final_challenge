@@ -1,6 +1,8 @@
 import json
+import pandas as pd
 import os
 from datetime import datetime
+from resources.text_processor import TextCleaner, TextProcessor
 
 
 def save_data(
@@ -18,3 +20,23 @@ def save_data(
 
     print(f"-----> Data successfully saved in: {path}")
     
+    
+
+def preprocess_dataframe(
+    df: pd.DataFrame, 
+    text_column: str
+) -> pd.DataFrame:
+    """
+    Applies text cleaning and processing to a DataFrame column, creating multiple intermediate columns.
+    """
+    cleaner = TextCleaner()
+    processor = TextProcessor()
+    
+    df['cleaned_text'] = df[text_column].apply(cleaner.clean_text)
+    df['tokens'] = df['cleaned_text'].apply(processor.tokenize_text)
+    df['no_stopwords'] = df['tokens'].apply(processor.remove_stopwords)
+    df['stemmed'] = df['no_stopwords'].apply(processor.apply_stemming)
+    df['lemmatized'] = df['stemmed'].apply(lambda tokens: processor.apply_lemmatization(' '.join(tokens)))
+    df['final_text'] = df['lemmatized'].apply(lambda tokens: ' '.join(tokens))
+    
+    return df
