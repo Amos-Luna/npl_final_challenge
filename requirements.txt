@@ -8,3 +8,7 @@ spacy-spanish-lemmatizer
 nltk
 spacy
 requests
+beautifulsoup4
+langchain-core 
+langgraph>0.2.27
+langchain-openai
