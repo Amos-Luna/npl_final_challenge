@@ -1,2 +1,10 @@
 pandas
 jupyter
+newspaper3k
+tavily-python
+langchain-community>=0.2.11
+lxml_html_clean
+spacy-spanish-lemmatizer
+nltk
+spacy
+requests
