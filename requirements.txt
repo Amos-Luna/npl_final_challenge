@@ -14,3 +14,7 @@ beautifulsoup4
 langchain-core 
 langgraph>0.2.27
 langchain-openai
+torch
+transformers
+matplotlib
+seaborn
