@@ -12,7 +12,7 @@ def save_data(
     """Save extracted data in a JSON file with proper encoding and timestamp."""
 
     date_stamp = datetime.now().strftime("%d%m%Y")
-    path = f"../data/data_extracted_{file_name}_{date_stamp}.json"
+    path = f"../data/data_extracted_{file_name}_{date_stamp}_new.json"
     
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f_json:

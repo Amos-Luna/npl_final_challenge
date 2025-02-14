@@ -77,17 +77,21 @@ class CustomWebScraper:
                     continue
             elif isinstance(result_raw, list):
                 results_list = result_raw
-
+            
             for res in results_list:
                 url = res.get("url", "").strip()
                 if not url or url in self.results_dict:
                     continue 
 
                 snippet = res.get("content", "")
-                full_title = WebContentExtractor.get_title(url)
-                full_content_raw = WebContentExtractor.get_text_content(url)
-                full_content = WebContentExtractor.format_text(full_content_raw) if full_content_raw else ""
-
+                try: 
+                    full_title = WebContentExtractor.get_title(url)
+                    full_content_raw = WebContentExtractor.get_text_content(url)
+                    full_content = WebContentExtractor.format_text(full_content_raw) if full_content_raw else ""
+                except Exception as e:
+                    print(f"[Error] Exeption occured -> {e}")
+                    continue
+                
                 if "[Error]" in full_content:
                     print(f"---> [Error] Skipping invalid content from URL: ")
                     continue
