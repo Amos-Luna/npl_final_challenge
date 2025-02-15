@@ -20,7 +20,12 @@ def save_data(
 
     print(f"-----> Data successfully saved in: {path}")
     
-    
+def combine_text(row):
+    """Combina las columnas 'direct_snippet' y 'full_content'."""
+    direct = row.get('direct_snippet', '')
+    full = row.get('full_content', '')
+    return f"{direct} {full}".strip()
+
 
 def preprocess_dataframe(
     df: pd.DataFrame, 
@@ -31,7 +36,11 @@ def preprocess_dataframe(
     """
     cleaner = TextCleaner()
     processor = TextProcessor()
-    
+
+    if 'direct_snippet' in df.columns and 'full_content' in df.columns:
+        df['combined_text'] = df.apply(combine_text, axis=1)
+        text_column = 'combined_text'
+
     df['cleaned_text'] = df[text_column].apply(cleaner.clean_text)
     df['tokens'] = df['cleaned_text'].apply(processor.tokenize_text)
     df['no_stopwords'] = df['tokens'].apply(processor.remove_stopwords)
